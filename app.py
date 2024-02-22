@@ -33,11 +33,11 @@ def generate_ppt(ayahs):
         # Create a text box for the ayah text (title) at the top
         title_box = slide.shapes.add_textbox(Inches(0.5), Inches(0.5), Inches(9), Inches(0.75))
         tf_title = title_box.text_frame
-        tf_title.text = ayah['ayatext']  # Set ayah text as the title
+        tf_title.text = ayah['ayatext']
         p_title = tf_title.paragraphs[0]
-        p_title.font.size = Pt(26)
+        p_title.font.size = Pt(24)
         p_title.font.bold = True
-        p_title.font.color.rgb = RGBColor(255, 255, 255)  # White font color for contrast
+        p_title.font.color.rgb = RGBColor(255, 255, 255)
         p_title.alignment = PP_ALIGN.CENTER
 
         # Create a text box for translations and word meanings below the title
@@ -59,8 +59,16 @@ def generate_ppt(ayahs):
             p.alignment = PP_ALIGN.CENTER
             p.line_spacing = Pt(28)
 
+            # Add the meaning part in white
             run = p.add_run()
-            run.text = f"{word['meaning']} ({word['word']}) "
+            run.text = f"{word['meaning']} "
+            run.font.color.rgb = RGBColor(255, 255, 255)
+
+            # Add the word part, bold it, increase font size, and set in white
+            run = p.add_run()
+            run.text = f"({word['word']}) "
+            run.font.bold = True
+            run.font.size = Pt(18)  # Increase font size for emphasis
             run.font.color.rgb = RGBColor(255, 255, 255)
 
     return prs
